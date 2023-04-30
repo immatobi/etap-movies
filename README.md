@@ -1,55 +1,69 @@
-## Description
+## ETAP Movies App
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+> The REST API backend for the ETAP Interview task by Oluwatobi Immanuel. A Nest.js Backend application for a Movie app.
+
+## Framework
+
+This Software is built with the Node & NEST.js framework, with pure typescript as the coding language.
+
 
 ## Assesment Link
 [Link To Assessment](https://clammy-manager-f78.notion.site/Full-stack-Engineer-3b8b6e73a92b4317a35c02a43bc254b2)
 
 ## API Documentation Link
-[Link to API Doc](https://documenter.getpostman.com/view/5093497/2s93eSaFgK)
+[(https://documenter.getpostman.com/view/5093497/2s93eSaFgK](https://documenter.getpostman.com/view/5093497/2s93eSaFgK)
 
-## Installation
+## Github repository Link
+[https://github.com/immatobi/etap-movies](https://github.com/immatobi/
+etap-movies.git)
 
-```bash
-$ npm install
+## App Features
+```
+- Full authentication with 'register' and 'login'
+- Authentication and authorization features to manage app security
+- Protected routes for admin and users
+- Role-based flexible REST API endpoints
+- All required Movie features from 'task' requirements included.
+- Upload of movied thumbnail by users
+- Use of POSTGRESQL, NEST.js, NEXT.js, NODE.js, Typescript and React as Tech stack.
 ```
 
-## Running the app
+## Usage
 
-```bash
-# development
-$ npm run start
+- Pull the [codebase](https://github.com/immatobi/etap-movies.git) from the repository.
+- Make sure to have Nodejs, NEST.js && Typescrit installed globally on your computer
+- Duplicate the .env.example file and rename it to .env
+- Supply all the .env values EXCEPT the ones already supplied.
+- NB: Leave the 'GOOGLE_BUCKET_NAME' venv value as is.
 
-# watch mode
-$ npm run start:dev
 
-# production mode
-$ npm run start:prod
+### Install dependencies
+```
+- Run the command --> "npm install --force"
 ```
 
-## Test
+### Run Application
+```
+- Run in development mode --> "npm run start:dev"
+- Run in production mode --> "npm start"
+```
+
+
+
+### Testing (Unit Testing)
 
 ```bash
 # unit tests
-$ npm run test
+$ npm run test:watch
+```
+### To run the tests that cover app features
+```
+- Press 'p' on your keyboard to enter a specific test file path to run. Run the two tests below: (press 'p' first)
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+1. auth.controller.spec
+2. movie.controller.spec
 ```
 
-## Support
+## Metadata
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Version: 1.0.0  ||  License: MIT
