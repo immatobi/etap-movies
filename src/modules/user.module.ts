@@ -19,7 +19,6 @@ export class UserModule implements NestModule{
     configure(consumer: MiddlewareConsumer) {
         consumer
         .apply(ProtectGuard)
-        // .exclude()
         .forRoutes(UserController)
     }
 

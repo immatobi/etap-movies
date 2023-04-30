@@ -2,12 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../models/user.entity';
 import { Repository } from 'typeorm';
-import { ICreateUser, IUpdateUser } from 'src/utils/types.util';
+import { IAdvancedQuery, ICreateUser, IPagination, IUpdateUser } from 'src/utils/types.util';
 import { users as allUsers } from '../../_data/users';
 import { RoleService } from '../role/role.service';
 import { Role } from 'src/models/role.entity';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
+import { Movie } from 'src/models/movie.entity';
 
 @Injectable()
 export class UserService {

@@ -1,5 +1,5 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Param, Req, Res } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { AuthGuard } from 'src/common/decorators/auth.decor';
 import { adminRoles, allRoles } from 'src/common/roles';
 import { UserService } from 'src/services/user/user.service';
@@ -38,23 +38,6 @@ export class UserController {
             error: false,
             erros: [],
             data: user,
-            message: 'successful',
-            status: 200
-        })
-
-
-    }
-
-    @Get('/movies/:id')
-    @AuthGuard(allRoles)
-    public async getUserMovies(@Res() res: Response, @Param('id') id: string){
-
-        const user = await this.UserService.findOne(parseInt(id));
-
-        res.status(200).json({
-            error: false,
-            erros: [],
-            data: user.movies,
             message: 'successful',
             status: 200
         })

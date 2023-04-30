@@ -5,6 +5,9 @@
 ## Assesment Link
 [Link To Assessment](https://clammy-manager-f78.notion.site/Full-stack-Engineer-3b8b6e73a92b4317a35c02a43bc254b2)
 
+## API Documentation Link
+[Link to API Doc](https://documenter.getpostman.com/view/5093497/2s93eSaFgK)
+
 ## Installation
 
 ```bash

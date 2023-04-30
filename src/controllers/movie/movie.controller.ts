@@ -115,9 +115,17 @@ export class MovieController {
     }
 
     @Get('/user/:id')
-    public async getUserMovies(@Res() res: Response, @Param('id') id: string){
+    public async getUserMovies(@Req() req: Request, @Res() res: Response, @Param('id') id: string){
 
         const movies = await this.MovieService.findByUserId(parseInt(id));
+
+        // const q = {...req.query};
+
+        // const result = await this.MovieService.findByUserId({
+        //     take: q.take ? parseInt(q.take.toString()) : 50,
+        //     page: q.page ? parseInt(q.page.toString()) : 1,
+        //     order: q.order ? q.order.toString() : 'asc'
+        // }, parseInt(id))
 
         res.status(200).json({
             error: false,

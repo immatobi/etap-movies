@@ -92,8 +92,52 @@ export class MovieService {
             }
         })
 
-        
         return movies;
+
+        // // set variables
+        // const _page = page || 1;
+        // const limit = take || 50;
+        // const skip = (_page - 1) * limit;
+        // const end = _page * limit;
+
+        // // count records
+        // const total = await this.Repo.count({})
+
+        // // run query
+        // const data = await this.Repo.createQueryBuilder("movie")
+        // .leftJoinAndSelect("movie.user", "user")
+        // .where("user.id = :id", { id: id })
+        // .orderBy("title", `${order === 'desc' ? 'DESC' : 'ASC'}`)
+        // .take(limit)
+        // .skip(skip)
+        // .getRawMany();
+
+        // // calculate pagination
+        // let pagination: any = {};
+
+        // if (end < total) {
+		// 	pagination.next = {
+		// 		page: page + 1,
+		// 		limit,
+		// 	};
+		// }
+	
+		// if (skip > 0) {
+		// 	pagination.prev = {
+		// 		page: page - 1,
+		// 		limit,
+		// 	};
+		// }
+
+        // // set return data
+        // const retData: IPagination = {
+        //     total: total,
+        //     count: data.length,
+        //     data: data,
+        //     pagination: pagination
+        // }
+
+        // return retData
 
     }
 
