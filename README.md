@@ -14,8 +14,7 @@ This Software is built with the Node & NEST.js framework, with pure typescript a
 [(https://documenter.getpostman.com/view/5093497/2s93eSaFgK](https://documenter.getpostman.com/view/5093497/2s93eSaFgK)
 
 ## Github repository Link
-[https://github.com/immatobi/etap-movies](https://github.com/immatobi/
-etap-movies.git)
+[https://github.com/immatobi/etap-movies](https://github.com/immatobi/etap-movies.git)
 
 ## App Features
 ```
