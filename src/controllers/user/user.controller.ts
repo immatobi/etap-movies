@@ -15,7 +15,7 @@ export class UserController {
 
         const users = await this.UserService.find();
 
-        const filtered = users.filter((x) => x.email !== process.env.SUPERADMIN_EMAIL)
+        const filtered = users.filter((x) => x.email !== process.env.SUPERADMIN_EMAIL || 'super@etap.com')
 
         res.status(200).json({
             error: false,

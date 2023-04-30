@@ -41,7 +41,7 @@ export class MovieService {
      */
     public async attachSuperId(): Promise<void>{
 
-        const superadmin = await this.UserService.findByEmail(`${process.env.SUPERADMIN_EMAIL}`);
+        const superadmin = await this.UserService.findByEmail(`${process.env.SUPERADMIN_EMAIL || 'super@etap.com'}`);
         const movies = await this.find();
 
         if(superadmin && movies.length > 0){

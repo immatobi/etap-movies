@@ -60,7 +60,7 @@ export class UserService {
      */
     public async attachSuperRole(): Promise<boolean>{
 
-        const superadmin = await this.findByEmail(`${process.env.SUPERADMIN_EMAIL}`);
+        const superadmin = await this.findByEmail(`${process.env.SUPERADMIN_EMAIL || 'super@etap.com'}`);
         const role = await this.RoleService.findByName('superadmin')
 
         if(superadmin && role){

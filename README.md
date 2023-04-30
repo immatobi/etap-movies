@@ -16,6 +16,13 @@ This Software is built with the Node & NEST.js framework, with pure typescript a
 ## Github repository Link
 [https://github.com/immatobi/etap-movies](https://github.com/immatobi/etap-movies.git)
 
+## IMPORTANT!
+```
+- You can change the "SUPERADMIN_EMAIL" env variable if you want but make sure to combine the email you change to with the password " #_suPAetap1/ " (without the double quotes) to be able to login as superadmin
+
+- If you doecide not to change the env variable, use the email combined with the password above to login.
+```
+
 ## App Features
 ```
 - Full authentication with 'register' and 'login'
