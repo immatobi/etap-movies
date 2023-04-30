@@ -33,7 +33,7 @@ This Software is built with the Node & NEST.js framework, with pure typescript a
 - Make sure to have Nodejs, NEST.js && Typescrit installed globally on your computer
 - Duplicate the .env.example file and rename it to .env
 - Supply all the .env values EXCEPT the ones already supplied.
-- NB: Leave the 'GOOGLE_BUCKET_NAME' venv value as is.
+- NB: Leave the 'GOOGLE_BUCKET_NAME' env value as is.
 
 
 ### Install dependencies
