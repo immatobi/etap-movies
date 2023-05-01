@@ -39,7 +39,7 @@ export class UserService {
                     password: password,
                     username: user.username,
                     firstName: user.firstName,
-                    lastName: user.firstName
+                    lastName: user.firstName,
                 });
 
             }
@@ -157,7 +157,7 @@ export class UserService {
             username: data.username,
             firstName: data.firstName,
             lastName: data.lastName,
-            userType: 'user',
+            userType: data.email === process.env.SUPERADMIN_EMAIL ? 'superadmin' : 'user',
             isSuper: false,
             isAdmin: false,
             isUser: true

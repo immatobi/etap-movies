@@ -32,8 +32,9 @@ export class AuthModule implements NestModule{
     configure(consumer: MiddlewareConsumer) {
         consumer
         .apply(ProtectGuard)
-        .exclude('register', 'login')
-        .forRoutes(AuthController)
+        .forRoutes(
+            { path: '/auth/user', method: RequestMethod.ALL }
+        )
     }
 
 }

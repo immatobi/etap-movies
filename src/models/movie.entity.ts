@@ -39,13 +39,15 @@ export class Movie implements IMovieEntity {
 
     @Column({
         type: 'timestamp',
-        default: () => 'CURRENT_TIMESTAMP'
+        default: () => 'CURRENT_TIMESTAMP',
+        name: 'createdAt'
     })
     createdAt: string;
 
     @Column({
         type: 'timestamp',
-        default: () => 'CURRENT_TIMESTAMP'
+        default: () => 'CURRENT_TIMESTAMP',
+        name: 'updatedAt'
     })
     updatedAt: string;
 

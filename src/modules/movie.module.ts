@@ -26,12 +26,13 @@ import { GenreService } from "src/services/genre/genre.service";
 export class MovieModule implements NestModule{
 
     configure(consumer: MiddlewareConsumer) {
-        // consumer.apply(ProtectGuard).forRoutes('*')
-        // consumer.apply(ProtectGuard)
-        // .exclude(
-        //     { path: '/movies', method: RequestMethod.ALL }
-        // )
-        // .forRoutes('*')
+        consumer.apply(ProtectGuard).forRoutes(
+            { path: '/movies', method: RequestMethod.POST },
+            { path: '/movies', method: RequestMethod.GET },
+            { path: '/movies', method: RequestMethod.PUT },
+            { path: '/movies', method: RequestMethod.DELETE },
+            { path: '/movies/user', method: RequestMethod.ALL }
+        )
     }
 
 }

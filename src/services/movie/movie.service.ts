@@ -466,7 +466,7 @@ export class MovieService {
             data = await this.Repo.createQueryBuilder()
             .select('*')
             .where("genre = :genre", { genre: `%${genre}%` })
-            .orderBy("genre", `${order === 'desc' ? 'DESC' : 'ASC'}`)
+            .orderBy("title", `${order === 'desc' ? 'DESC' : 'ASC'}`)
             .take(limit)
             .skip(skip)
             .getRawMany();
