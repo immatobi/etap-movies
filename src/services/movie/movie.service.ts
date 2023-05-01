@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Movie } from '../../models/movie.entity';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { UserService } from '../user/user.service';
 import { movies as allMovies } from '../../_data/movies';
 import { IAdvancedQuery, ICreateMovie, IFilterMovie, IPagination, ISearchMovie, IUpdateMovie } from 'src/utils/types.util';
@@ -354,11 +354,55 @@ export class MovieService {
         // count records
         const total = await this.Repo.count({})
 
-        const data = await this.Repo.createQueryBuilder()
-        .select('*')
-        .orWhere("genre = :genre", { genre: `${genre}` })
-        .orWhere("brand ilike :brand", { brand: `%${brand}%` })
-        .orWhere("year = :year", {year: `%${year}%`})
+        let query: SelectQueryBuilder<Movie> = this.Repo.createQueryBuilder().select('*');
+
+        if(title){
+            
+            query.where('title = :title', { title: title })
+
+            if(genre){
+                query.andWhere('genre = :genre', { genre: `${genre}`})
+            }else if(year){
+                query.andWhere('year = :year', { year: `${year}`})
+            }else if(brand){
+                query.andWhere('brand = :brand', { brand: `${brand}`})
+            }
+        }else if(brand){
+
+            query.where('brand = :brand', { brand: brand })
+
+            if(genre){
+                query.andWhere('genre = :genre', { genre: `${genre}`})
+            }else if(year){
+                query.andWhere('year = :year', { year: `${year}`})
+            }else if(title){
+                query.andWhere('title = :title', { title: `${title}`})
+            }
+        }else if(genre){
+
+            query.where('genre = :genre', { genre: genre })
+
+            if(brand){
+                query.andWhere('brand = :brand', { brand: `${brand}`})
+            }else if(year){
+                query.andWhere('year = :year', { year: `${year}`})
+            }else if(title){
+                query.andWhere('title = :title', { title: `${title}`})
+            }
+        }else if(year){
+
+            query.where('year = :year', { year: year })
+
+            if(brand){
+                query.andWhere('brand = :brand', { brand: `${brand}`})
+            }else if(genre){
+                query.andWhere('genre = :genre', { genre: `${genre}`})
+            }else if(title){
+                query.andWhere('title = :title', { title: `${title}`})
+            }
+        }
+
+        const data = await query
         .orderBy("title", `${order === 'desc' ? 'DESC' : 'ASC'}`)
         .take(limit)
         .skip(skip)
