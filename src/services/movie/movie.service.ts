@@ -7,11 +7,19 @@ import { movies as allMovies } from '../../_data/movies';
 import { IAdvancedQuery, ICreateMovie, IFilterMovie, IPagination, ISearchMovie, IUpdateMovie } from 'src/utils/types.util';
 import { User } from '../../models/user.entity';
 import { StorageService } from '../storage/storage.service';
+import { Genre } from 'src/models/genre.entity';
+import { Brand } from 'src/models/brand.entity';
 
 @Injectable()
 export class MovieService {
 
-    constructor(@InjectRepository(Movie) private Repo: Repository<Movie>, private UserService: UserService, private StorageService: StorageService){}
+    constructor(
+        @InjectRepository(Movie) private Repo: Repository<Movie>, 
+        @InjectRepository(Genre) private GenreRepo: Repository<Genre>,
+        @InjectRepository(Brand) private BrandRepo: Repository<Brand>,
+        private UserService: UserService, 
+        private StorageService: StorageService
+    ){}
 
     /**
      * @name seedUsers
@@ -93,52 +101,6 @@ export class MovieService {
         })
 
         return movies;
-
-        // // set variables
-        // const _page = page || 1;
-        // const limit = take || 50;
-        // const skip = (_page - 1) * limit;
-        // const end = _page * limit;
-
-        // // count records
-        // const total = await this.Repo.count({})
-
-        // // run query
-        // const data = await this.Repo.createQueryBuilder("movie")
-        // .leftJoinAndSelect("movie.user", "user")
-        // .where("user.id = :id", { id: id })
-        // .orderBy("title", `${order === 'desc' ? 'DESC' : 'ASC'}`)
-        // .take(limit)
-        // .skip(skip)
-        // .getRawMany();
-
-        // // calculate pagination
-        // let pagination: any = {};
-
-        // if (end < total) {
-		// 	pagination.next = {
-		// 		page: page + 1,
-		// 		limit,
-		// 	};
-		// }
-	
-		// if (skip > 0) {
-		// 	pagination.prev = {
-		// 		page: page - 1,
-		// 		limit,
-		// 	};
-		// }
-
-        // // set return data
-        // const retData: IPagination = {
-        //     total: total,
-        //     count: data.length,
-        //     data: data,
-        //     pagination: pagination
-        // }
-
-        // return retData
-
     }
 
     /**
@@ -205,20 +167,44 @@ export class MovieService {
      */
     public async create(data: Partial<ICreateMovie>, user: User): Promise<Movie>{
 
+        let brand: Brand;
+        let genre: Genre;
+
+        const today = new Date();
+
+        const brands = await this.findBrands()
+        const genres = await this.findGenres()
+
+        brand = brands.find((x) => x.name === data.brand);
+
+        if(!brand){
+            brand = this.BrandRepo.create({ name: data.brand });
+            await this.BrandRepo.save(brand);
+
+        }
+
+        genre = genres.find((x) => x.name === data.genre);
+
+        if(!genre){
+            genre = this.GenreRepo.create({ name: data.genre });
+            await this.GenreRepo.save(genre);
+
+        }
+
         const movie = this.Repo.create({
             title: data.title,
             description: data.description,
-            genre: data.genre,
+            genre: genre.name,
             year: data.year,
             thumbnail: data.thumbnail,
-            brand: data.brand,
+            brand: brand.name,
             user: user
         })
 
         const saved = await this.Repo.save(movie);
 
         // upload file
-        const filename = `movie-thumb-${movie.id}`
+        const filename = `movie-thumb-${today.getTime()}`
         const upload = await this.StorageService.uploadGcpFile(data.thumbnail, filename, 'base64');
 
         if(upload.error){
@@ -236,6 +222,28 @@ export class MovieService {
     }
 
     /**
+     * 
+     * @returns 
+     */
+    public async findBrands(): Promise<Array<Brand>>{
+
+        const brands = await this.BrandRepo.find({})
+        return brands;
+
+    }
+
+    /**
+     * 
+     * @returns 
+     */
+    public async findGenres(): Promise<Array<Genre>>{
+
+        const genres = await this.GenreRepo.find({})
+        return genres;
+
+    }
+
+    /**
      * @name update
      * @param data 
      * @returns 
@@ -244,6 +252,28 @@ export class MovieService {
 
         const today = new Date();
         const movie = await this.findOne(id);
+
+        let brand: Brand;
+        let genre: Genre;
+
+        const brands = await this.findBrands()
+        const genres = await this.findGenres()
+
+        brand = brands.find((x) => x.name === data.brand);
+
+        if(!brand){
+            brand = this.BrandRepo.create({ name: data.brand });
+            await this.BrandRepo.save(brand);
+
+        }
+
+        genre = genres.find((x) => x.name === data.genre);
+
+        if(!genre){
+            genre = this.GenreRepo.create({ name: data.genre });
+            await this.GenreRepo.save(genre);
+
+        }
 
         if(!movie){
             throw new NotFoundException('movie does not exist');
@@ -260,6 +290,10 @@ export class MovieService {
             }
 
         }
+
+        // assign values for brand and genre
+        data.brand = brand.name;
+        data.genre = genre.name;
 
         Object.assign(movie, data);
         const saved = this.Repo.save(movie);

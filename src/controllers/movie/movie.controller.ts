@@ -68,12 +68,28 @@ export class MovieController {
     @Get('/genres')
     public async getAllGenres(@Res() res: Response){
 
-        const genres: Array<string> = Object.values(MovieGenre);
+        const genres = await this.MovieService.findGenres()
 
         res.status(200).json({
             error: false,
             erros: [],
             data: genres,
+            message: 'successful',
+            status: 200
+        })
+
+
+    }
+
+    @Get('/brands')
+    public async getAllBrands(@Res() res: Response){
+
+        const brands = await this.MovieService.findBrands()
+
+        res.status(200).json({
+            error: false,
+            erros: [],
+            data: brands,
             message: 'successful',
             status: 200
         })

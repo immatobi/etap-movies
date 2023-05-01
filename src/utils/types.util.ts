@@ -9,6 +9,18 @@ export interface IRoleEntity{
     users: Array<IUserEntity>
 }
 
+export interface IGenreEntity{
+    id: number,
+    name: string,
+    slug: string
+}
+
+export interface IBrandEntity{
+    id: number,
+    name: string,
+    slug: string
+}
+
 export interface IUserEntity{
     id: number,
     username: string,

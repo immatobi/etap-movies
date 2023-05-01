@@ -10,10 +10,12 @@ import { Movie } from "../models/movie.entity";
 import { MovieService } from "../services/movie/movie.service";
 import { ProtectGuard } from '../middleware/auth.mw';
 import { StorageModule } from './storage.module';
+import { Brand } from "../models/brand.entity";
+import { Genre } from "../models/genre.entity";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User, Role, Movie]),
+        TypeOrmModule.forFeature([User, Role, Movie, Brand, Genre]),
         StorageModule
     ],
     controllers: [AuthController],

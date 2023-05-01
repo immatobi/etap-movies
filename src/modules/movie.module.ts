@@ -6,14 +6,16 @@ import { MovieService } from "../services/movie/movie.service";
 import { MovieController } from "../controllers/movie/movie.controller";
 import { Movie } from "../models/movie.entity";
 import { RoleService } from "../services/role/role.service";
-import { Role } from "src/models/role.entity";
+import { Role } from "../models/role.entity";
 import { ProtectGuard } from "src/middleware/auth.mw";
-import { StorageService } from "src/services/storage/storage.service";
+import { StorageService } from "../services/storage/storage.service";
 import { StorageModule } from "./storage.module";
+import { Genre } from "../models/genre.entity";
+import { Brand } from "../models/brand.entity";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Movie, User, Role]),
+        TypeOrmModule.forFeature([Movie, User, Role, Genre, Brand]),
         StorageModule,
     ],
     controllers: [MovieController],
