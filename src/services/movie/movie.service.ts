@@ -320,14 +320,14 @@ export class MovieService {
         if (end < total) {
 			pagination.next = {
 				page: page + 1,
-				limit,
+				limit: limit,
 			};
 		}
 	
 		if (skip > 0) {
 			pagination.prev = {
 				page: page - 1,
-				limit,
+				limit: limit,
 			};
 		}
 
@@ -414,14 +414,14 @@ export class MovieService {
         if (end < total) {
 			pagination.next = {
 				page: page + 1,
-				limit,
+				limit: limit,
 			};
 		}
 	
 		if (skip > 0) {
 			pagination.prev = {
 				page: page - 1,
-				limit,
+				limit: limit,
 			};
 		}
 
@@ -442,7 +442,7 @@ export class MovieService {
         // set variables
         let data: Array<any> = []
         const _page = page || 1;
-        const limit = take || 50;
+        const limit = (take) || 50;
         const skip = (_page - 1) * limit;
         const end = _page * limit;
 
@@ -465,7 +465,7 @@ export class MovieService {
 
             data = await this.Repo.createQueryBuilder()
             .select('*')
-            .where("genre = :genre", { genre: `${genre}` })
+            .where("genre = :genre", { genre: `%${genre}%` })
             .orderBy("genre", `${order === 'desc' ? 'DESC' : 'ASC'}`)
             .take(limit)
             .skip(skip)
@@ -479,14 +479,14 @@ export class MovieService {
         if (end < total) {
 			pagination.next = {
 				page: page + 1,
-				limit,
+				limit: limit,
 			};
 		}
 	
 		if (skip > 0) {
 			pagination.prev = {
 				page: page - 1,
-				limit,
+				limit: limit,
 			};
 		}
 
