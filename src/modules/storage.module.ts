@@ -11,13 +11,15 @@ import { UserService } from 'src/services/user/user.service';
 import { MovieModule } from './movie.module';
 import { Genre } from '../models/genre.entity';
 import { Brand } from '../models/brand.entity';
+import { BrandService } from 'src/services/brand/brand.service';
+import { GenreService } from 'src/services/genre/genre.service';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Movie, User, Role, Genre, Brand])
     ],
     controllers: [MovieController],
-    providers: [MovieService, UserService, RoleService, StorageService],
+    providers: [MovieService, UserService, RoleService, StorageService, BrandService, GenreService],
     exports: [StorageService]
 })
 

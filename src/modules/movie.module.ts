@@ -12,6 +12,8 @@ import { StorageService } from "../services/storage/storage.service";
 import { StorageModule } from "./storage.module";
 import { Genre } from "../models/genre.entity";
 import { Brand } from "../models/brand.entity";
+import { BrandService } from "src/services/brand/brand.service";
+import { GenreService } from "src/services/genre/genre.service";
 
 @Module({
     imports: [
@@ -19,7 +21,7 @@ import { Brand } from "../models/brand.entity";
         StorageModule,
     ],
     controllers: [MovieController],
-    providers: [MovieService, UserService, RoleService, StorageService]
+    providers: [MovieService, UserService, RoleService, StorageService, BrandService, GenreService]
 })
 export class MovieModule implements NestModule{
 

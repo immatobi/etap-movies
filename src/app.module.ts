@@ -16,6 +16,8 @@ import { validateChannels } from './middleware/header.mw';
 import { RoleModule } from './modules/role.module';
 import { SeederModule } from './modules/seeder.module';
 import { StorageModule } from './modules/storage.module';
+import { BrandModule } from './modules/brand.module';
+import { GenreModule } from './modules/genre.module';
 @Module({
   imports: [ 
 
@@ -38,12 +40,12 @@ import { StorageModule } from './modules/storage.module';
 
     }),
 
-    SeederModule, RoleModule, AuthModule, UserModule, MovieModule, StorageModule
+    SeederModule, RoleModule, AuthModule, UserModule, MovieModule, StorageModule, BrandModule, GenreModule
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard }
   ],
 })
 export class AppModule implements NestModule {

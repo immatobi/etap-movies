@@ -11,9 +11,11 @@ import { Movie } from "src/models/movie.entity";
 import { StorageService } from "src/services/storage/storage.service";
 import { Genre } from "../models/genre.entity";
 import { Brand } from "../models/brand.entity";
+import { BrandService } from "src/services/brand/brand.service";
+import { GenreService } from "src/services/genre/genre.service";
 
 @Module({
     imports: [TypeOrmModule.forFeature([Role, User, Movie, Genre, Brand])],
-    providers: [Seeder, RoleService, UserService, MovieService, StorageService]
+    providers: [Seeder, RoleService, UserService, MovieService, StorageService, BrandService, GenreService]
 })
 export class SeederModule {}

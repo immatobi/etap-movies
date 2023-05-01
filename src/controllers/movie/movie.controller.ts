@@ -4,6 +4,8 @@ import { AuthGuard } from 'src/common/decorators/auth.decor';
 import { CreateMovieDto, SearchMovieDto, UpdateMovieDto } from 'src/common/dtos/movie.dto';
 import { MovieGenre } from 'src/common/enums/movie.enum';
 import { adminRoles, allRoles } from 'src/common/roles';
+import { BrandService } from 'src/services/brand/brand.service';
+import { GenreService } from 'src/services/genre/genre.service';
 import { MovieService } from 'src/services/movie/movie.service';
 import { UserService } from 'src/services/user/user.service';
 import { IPagination } from 'src/utils/types.util';
@@ -11,7 +13,12 @@ import { IPagination } from 'src/utils/types.util';
 @Controller('movies')
 export class MovieController {
 
-    constructor(private MovieService: MovieService, private UserService: UserService){}
+    constructor(
+        private MovieService: MovieService, 
+        private UserService: UserService,
+        private GenreService: GenreService,
+        private BrandService: BrandService,
+    ){}
 
     @Get('/')
     @AuthGuard(adminRoles)
@@ -68,7 +75,7 @@ export class MovieController {
     @Get('/genres')
     public async getAllGenres(@Res() res: Response){
 
-        const genres = await this.MovieService.findGenres()
+        const genres = await this.GenreService.find()
 
         res.status(200).json({
             error: false,
@@ -84,7 +91,7 @@ export class MovieController {
     @Get('/brands')
     public async getAllBrands(@Res() res: Response){
 
-        const brands = await this.MovieService.findBrands()
+        const brands = await this.BrandService.find()
 
         res.status(200).json({
             error: false,

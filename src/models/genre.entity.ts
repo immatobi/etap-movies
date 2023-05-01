@@ -5,7 +5,7 @@ import { IGenreEntity } from "src/utils/types.util";
 @Entity()
 export class Genre implements IGenreEntity{
 
-    @PrimaryGeneratedColumn({ type: 'bigint', name: 'roleId' })
+    @PrimaryGeneratedColumn({ type: 'bigint', name: 'genreId' })
     id: number
 
     @Column({ nullable: true })

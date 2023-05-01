@@ -1,11 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from "typeorm";
 import slugify from 'slugify';
-import { IBrandEntity, IGenreEntity } from "src/utils/types.util";
+import { IBrandEntity } from "src/utils/types.util";
 
 @Entity()
 export class Brand implements IBrandEntity{
 
-    @PrimaryGeneratedColumn({ type: 'bigint', name: 'roleId' })
+    @PrimaryGeneratedColumn({ type: 'bigint', name: 'brandId' })
     id: number
 
     @Column({ nullable: true })

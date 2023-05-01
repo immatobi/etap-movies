@@ -9,16 +9,18 @@ import { User } from '../../models/user.entity';
 import { StorageService } from '../storage/storage.service';
 import { Genre } from 'src/models/genre.entity';
 import { Brand } from 'src/models/brand.entity';
+import { BrandService } from '../brand/brand.service';
+import { GenreService } from '../genre/genre.service';
 
 @Injectable()
 export class MovieService {
 
     constructor(
         @InjectRepository(Movie) private Repo: Repository<Movie>, 
-        @InjectRepository(Genre) private GenreRepo: Repository<Genre>,
-        @InjectRepository(Brand) private BrandRepo: Repository<Brand>,
         private UserService: UserService, 
-        private StorageService: StorageService
+        private StorageService: StorageService,
+        private BrandService: BrandService,
+        private GenreService: GenreService
     ){}
 
     /**
@@ -172,23 +174,19 @@ export class MovieService {
 
         const today = new Date();
 
-        const brands = await this.findBrands()
-        const genres = await this.findGenres()
+        const brands = await this.BrandService.find()
+        const genres = await this.GenreService.find()
 
         brand = brands.find((x) => x.name === data.brand);
 
         if(!brand){
-            brand = this.BrandRepo.create({ name: data.brand });
-            await this.BrandRepo.save(brand);
-
+            brand = await this.BrandService.create({ name: data.brand });
         }
 
         genre = genres.find((x) => x.name === data.genre);
 
         if(!genre){
-            genre = this.GenreRepo.create({ name: data.genre });
-            await this.GenreRepo.save(genre);
-
+            genre = await this.GenreService.create({ name: data.genre });
         }
 
         const movie = this.Repo.create({
@@ -220,29 +218,7 @@ export class MovieService {
         }
         
     }
-
-    /**
-     * 
-     * @returns 
-     */
-    public async findBrands(): Promise<Array<Brand>>{
-
-        const brands = await this.BrandRepo.find({})
-        return brands;
-
-    }
-
-    /**
-     * 
-     * @returns 
-     */
-    public async findGenres(): Promise<Array<Genre>>{
-
-        const genres = await this.GenreRepo.find({})
-        return genres;
-
-    }
-
+    
     /**
      * @name update
      * @param data 
@@ -256,23 +232,19 @@ export class MovieService {
         let brand: Brand;
         let genre: Genre;
 
-        const brands = await this.findBrands()
-        const genres = await this.findGenres()
+        const brands = await this.BrandService.find()
+        const genres = await this.GenreService.find()
 
         brand = brands.find((x) => x.name === data.brand);
 
         if(!brand){
-            brand = this.BrandRepo.create({ name: data.brand });
-            await this.BrandRepo.save(brand);
-
+            brand = await this.BrandService.create({ name: data.brand });
         }
 
         genre = genres.find((x) => x.name === data.genre);
 
         if(!genre){
-            genre = this.GenreRepo.create({ name: data.genre });
-            await this.GenreRepo.save(genre);
-
+            genre = await this.GenreService.create({ name: data.genre });
         }
 
         if(!movie){

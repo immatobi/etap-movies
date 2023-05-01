@@ -12,14 +12,20 @@ import { ProtectGuard } from '../middleware/auth.mw';
 import { StorageModule } from './storage.module';
 import { Brand } from "../models/brand.entity";
 import { Genre } from "../models/genre.entity";
+import { BrandModule } from './brand.module';
+import { GenreModule } from './genre.module';
+import { BrandService } from "src/services/brand/brand.service";
+import { GenreService } from "src/services/genre/genre.service";
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([User, Role, Movie, Brand, Genre]),
-        StorageModule
+        StorageModule,
+        BrandModule,
+        GenreModule
     ],
     controllers: [AuthController],
-    providers: [AuthService, UserService, RoleService, MovieService]
+    providers: [AuthService, UserService, RoleService, MovieService, BrandService, GenreService]
 })
 export class AuthModule implements NestModule{
 
