@@ -350,9 +350,8 @@ export class MovieService {
 
         const data = await this.Repo.createQueryBuilder()
         .select('*')
-        .where("title ilike :title", { title: `%${title}%` })
-        .andWhere("genre = :genre", { genre: `${genre}` })
-        .andWhere("brand ilike :brand", { brand: `%${brand}%` })
+        .orWhere("genre = :genre", { genre: `${genre}` })
+        .orWhere("brand ilike :brand", { brand: `%${brand}%` })
         .orWhere("year = :year", {year: `%${year}%`})
         .orderBy("title", `${order === 'desc' ? 'DESC' : 'ASC'}`)
         .take(limit)
@@ -416,7 +415,7 @@ export class MovieService {
 
             data = await this.Repo.createQueryBuilder()
             .select('*')
-            .andWhere("genre = :genre", { genre: `${genre}` })
+            .where("genre = :genre", { genre: `${genre}` })
             .orderBy("genre", `${order === 'desc' ? 'DESC' : 'ASC'}`)
             .take(limit)
             .skip(skip)

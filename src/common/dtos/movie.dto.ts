@@ -13,7 +13,6 @@ export class CreateMovieDto{
     brand: string
 
     @IsString()
-    @MinLength(4)
     @MaxLength(4)
     year: string
 
@@ -75,7 +74,6 @@ export class SearchMovieDto{
     brand: string
 
     @IsString()
-    @MinLength(4)
     @MaxLength(4)
     @IsOptional()
     year: string
@@ -97,7 +95,6 @@ export class FilterMovieDto{
     brand: string
 
     @IsString()
-    @MinLength(4)
     @MaxLength(4)
     @IsOptional()
     year: string

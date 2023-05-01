@@ -115,6 +115,7 @@ export class MovieController {
     }
 
     @Get('/user/:id')
+    @AuthGuard(allRoles)
     public async getUserMovies(@Req() req: Request, @Res() res: Response, @Param('id') id: string){
 
         const movies = await this.MovieService.findByUserId(parseInt(id));
@@ -142,7 +143,7 @@ export class MovieController {
     @AuthGuard(allRoles)
     public async createMovie(@Req() req: Request, @Res() res: Response, @Body() body: CreateMovieDto){
 
-        const allowed: Array<string> = Object.values(MovieGenre);
+        // const allowed: Array<string> = Object.values(MovieGenre);
 
         const { title, brand, year, thumbnail, description, genre } = body;
 
@@ -152,9 +153,9 @@ export class MovieController {
             throw new HttpException('movie already exist. use a different title, brand and year', 400)
         }
 
-        if(!allowed.includes(genre)){
-            throw new HttpException(`invalid genre value. choose from ${allowed.join(', ')}`, 400)
-        }
+        // if(!allowed.includes(genre)){
+        //     throw new HttpException(`invalid genre value. choose from ${allowed.join(', ')}`, 400)
+        // }
 
         const user = await this.UserService.findByEmail(req.user.email);
 

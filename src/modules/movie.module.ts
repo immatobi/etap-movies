@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserService } from "../services/user/user.service";
 import { User } from "../models/user.entity";
@@ -22,10 +22,12 @@ import { StorageModule } from "./storage.module";
 export class MovieModule implements NestModule{
 
     configure(consumer: MiddlewareConsumer) {
-        consumer
-        .apply(ProtectGuard)
-        .exclude('all', 'details', 'genres', 'search/(.*)')
-        .forRoutes(MovieController)
+        // consumer.apply(ProtectGuard).forRoutes('*')
+        // consumer.apply(ProtectGuard)
+        // .exclude(
+        //     { path: '/movies', method: RequestMethod.ALL }
+        // )
+        // .forRoutes('*')
     }
 
 }

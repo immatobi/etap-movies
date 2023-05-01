@@ -16,7 +16,7 @@ export class Movie implements IMovieEntity {
     @Column({ nullable: true })
     description: string
 
-    @Column({ nullable: false, type: 'enum', enum: MovieGenre, default: MovieGenre.SUPERHERO })
+    @Column({ nullable: true })
     genre: string
 
     @Column({ nullable: true })

@@ -40,7 +40,7 @@ export class ProtectGuard implements NestMiddleware{
                 if(result.id && result.email){
                     req.user = result;
                 }else{
-                    return next(new HttpException('user is not authorized to access this route', 401))
+                    return next(new HttpException('user is not authorized to access this route [protecta]', 401))
                 }
     
             }
@@ -49,7 +49,7 @@ export class ProtectGuard implements NestMiddleware{
             
         } catch (err: any) {
     
-            return next(new HttpException('user is not authorized to access this route', 401))
+            return next(new HttpException('user is not authorized to access this route [protectb]', 401))
             
         }
 
@@ -72,7 +72,7 @@ export class AuthourizeGuard implements CanActivate{
         const check = await this.checkRole(this.roles, request.user.roles)
 
         if(check === false){
-            throw new HttpException('user is not authorized to access this route', 401)
+            throw new HttpException('user is not authorized to access this route [authorize]', 401)
         }
 
         return true;
