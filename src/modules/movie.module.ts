@@ -26,13 +26,9 @@ import { GenreService } from "src/services/genre/genre.service";
 export class MovieModule implements NestModule{
 
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply(ProtectGuard).forRoutes(
-            { path: '/movies', method: RequestMethod.POST },
-            { path: '/movies', method: RequestMethod.GET },
-            { path: '/movies', method: RequestMethod.PUT },
-            { path: '/movies', method: RequestMethod.DELETE },
-            { path: '/movies/user', method: RequestMethod.ALL }
-        )
+        consumer.apply(ProtectGuard)
+        .exclude('all', 'genres', 'brands', '/movies/details', '/movies/search', )
+        .forRoutes(MovieController)
     }
 
 }

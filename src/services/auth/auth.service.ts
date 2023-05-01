@@ -35,47 +35,48 @@ export class AuthService{
             this.result.error = true
             this.result.message = 'An error occured. contact support'
             this.result.code = 500
+            
+        }else{
 
-            return this.result;
+
+            const checkEmail = await this.UserService.emailExists(data.email);
+
+            if(checkEmail){
+                this.result.error = true
+                this.result.message = 'email already exist. user another email'
+                this.result.code = 400
+            }else{
+
+                const checkUsername = await this.UserService.usernameExists(data.username);
+
+                if(checkUsername){
+                    this.result.error = true
+                    this.result.message = 'username already exist. user another username'
+                    this.result.code = 400
+                }else{
+
+                    // hash password
+                    const salt = await bcrypt.genSalt(10);
+                    const password = await bcrypt.hash(data.password, salt);
+        
+                    // create user
+                    const user = await this.UserService.create({
+                        email: data.email,
+                        password: password,
+                        username: data.username,
+                        firstName: data.firstName,
+                        lastName: data.firstName
+                    });
+        
+                    // attach user role
+                    await this.UserService.attachRoles([role.name], user)
+                    this.result.data = user;
+
+                } 
+
+            }
+
         }
-
-        const checkEmail = await this.UserService.emailExists(data.email);
-
-        if(checkEmail){
-            this.result.error = true
-            this.result.message = 'email already exist. user another email'
-            this.result.code = 400
-
-            return this.result;
-        }
-
-        const checkUsername = await this.UserService.usernameExists(data.username);
-
-        if(checkUsername){
-            this.result.error = true
-            this.result.message = 'username already exist. user another username'
-            this.result.code = 400
-
-            return this.result;
-        }
-
-        // hash password
-        const salt = await bcrypt.genSalt(10);
-        const password = await bcrypt.hash(data.password, salt);
-
-        // create user
-        const user = await this.UserService.create({
-            email: data.email,
-            password: password,
-            username: data.username,
-            firstName: data.firstName,
-            lastName: data.firstName
-        });
-
-        // attach user role
-        await this.UserService.attachRoles([role.name], user)
-
-        this.result.data = user as User;
 
         return this.result;
 
@@ -97,22 +98,22 @@ export class AuthService{
             this.result.message = 'user does not exist'
             this.result.code = 404;
 
-            return this.result;
+        }else{
+
+            const isMatched = await this.UserService.matchPassword(user, password);
+
+            if(!isMatched){
+                this.result.error = true;
+                this.result.message = 'invalid credentials. bad password!'
+                this.result.code = 403;
+            }else{
+
+                const retUser = await this.UserService.findByEmail(user.user_email)
+                this.result.data = retUser;
+
+            } 
+
         }
-
-        const isMatched = await this.UserService.matchPassword(user, password);
-
-        if(!isMatched){
-            this.result.error = true;
-            this.result.message = 'invalid credentials. bad password!'
-            this.result.code = 403;
-
-            return this.result;
-        }
-
-        const retUser = await this.UserService.findByEmail(user.user_email)
-        this.result.data = retUser;
-
         return this.result;
 
     }

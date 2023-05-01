@@ -23,14 +23,14 @@ export class AuthController{
             throw new HttpException(create.message, create.code)
         }
 
-        res.status(200).json({
+        const tk = await this.AuthService.tokenResponse(create.data)
+        const { token, options, ...userData } = tk;
+
+        res.status(200).cookie('token', tk.token, tk.options).cookie('userType', tk.userType, tk.options).json({
             error: false,
             errors: [],
-            data: {
-                id: create.data.id,
-                username: create.data.username,
-                email: create.data.email
-            },
+            data: userData,
+            token: tk.token,
             message: 'successful',
             status: 200
         })
